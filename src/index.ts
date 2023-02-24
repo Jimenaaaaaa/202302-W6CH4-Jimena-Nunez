@@ -58,6 +58,31 @@ const server = http.createServer((req, resp) => {
   <p>${num1} / ${num2} = ${answers.div} </p>
   `);
 
+  switch (req.method) {
+    case 'GET':
+      if (!req.url) {
+        server.emit('error', new Error('invalid url'));
+        return;
+      }
+
+      const files = fs.readFile('data.json', { encoding: 'utf-8' });
+
+      resp.write(files);
+      break;
+
+    case 'POST':
+      console.log('hola');
+      break;
+
+    case 'PATCH':
+    case 'DELETE':
+      resp.write('prueba');
+      break;
+
+    default:
+      resp.write('No conozco el metodo ' + req.method);
+      break;
+  }
 });
 
 // Necesito emitir en otro sitio el evento. erver.emit()
