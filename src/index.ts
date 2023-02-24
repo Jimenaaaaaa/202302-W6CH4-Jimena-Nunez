@@ -1,3 +1,5 @@
+/* eslint-disable no-case-declarations */
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/no-empty-function */
 
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
@@ -10,7 +12,13 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-const PORT = process.env.PORT || 4300;
+import { program } from 'commander';
+program.option('--port <char>');
+program.parse();
+const options = program.opts();
+export const newPort = options.port;
+
+const PORT = newPort || process.env.PORT || 4000;
 
 const server = http.createServer((req, resp) => {
   if (!req.url) {
@@ -50,33 +58,6 @@ const server = http.createServer((req, resp) => {
   <p>${num1} / ${num2} = ${answers.div} </p>
   `);
 
-  // Switch (req.method) {
-  //   case 'GET':
-  //     if (!req.url) {
-  //       server.emit('error', new Error('invalid url'));
-  //       return;
-  //     }
-
-  //     const { pathname } = url.parse(req.url);
-
-  //     resp.write('Hello World: estos son tus datos de ' + pathname);
-  //     break;
-
-  //   case 'POST':
-  //     console.log('hola');
-  //     break;
-
-  //   case 'PATCH':
-  //   case 'DELETE':
-  //     resp.write('Hello World, de momento no esta implementado ' + req.method);
-  //     break;
-
-  //   default:
-  //     resp.write('No conozco el metodo ' + req.method);
-  //     break;
-  // }
-
-  resp.end();
 });
 
 // Necesito emitir en otro sitio el evento. erver.emit()
