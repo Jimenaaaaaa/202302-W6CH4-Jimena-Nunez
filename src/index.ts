@@ -65,9 +65,9 @@ const server = http.createServer((req, resp) => {
         return;
       }
 
-      const files = fs.readFile('data.json', { encoding: 'utf-8' });
+      // const files = fs.readFile('data.json', { encoding: 'utf-8' });
 
-      resp.write(files);
+      // resp.write(files);
       break;
 
     case 'POST':
